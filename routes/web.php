@@ -32,9 +32,16 @@ Route::get('/', function () {
 
 
 Route::get('/admin', function () {
-    return Inertia::render('AdminDashboard');
+    return Inertia::render('Admin/AdminDashboard');
 })->middleware(['auth', 'verified'])->name('admin');
 
+Route::get('/admin/artikel', function () {
+    return Inertia::render('Admin/Artikel');
+})->middleware(['auth', 'verified'])->name('admin');
+
+Route::get('/admin/artikel/new', function () {
+    return Inertia::render('Admin/AddArtikel');
+})->middleware(['auth', 'verified'])->name('admin');
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
