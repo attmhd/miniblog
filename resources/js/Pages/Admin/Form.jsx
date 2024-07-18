@@ -1,12 +1,21 @@
 import AdminLayout from "@/Layouts/AdminLayout";
-import { Link } from "@inertiajs/react";
+import { Link, useForm } from "@inertiajs/react";
 import React, { useState, useRef, useMemo } from "react";
 import JoditEditor from "jodit-react";
+import { router } from "@inertiajs/react";
 
-export default function AdminArticle({ auth }) {
+export default function Form({ auth, userId }) {
     const editor = useRef(null);
     const [content, setContent] = useState("");
+    const { data, setData } = useForm({
+        title: "",
+        description: "",
+    });
 
+    const addArticle = (e) => {
+        e.preventDefault();
+        router.post("/admin/artikel", data);
+    };
     const config = useMemo(() => ({
         readonly: false,
     }));
@@ -17,9 +26,9 @@ export default function AdminArticle({ auth }) {
                 <section className="bg-white dark:bg-gray-900">
                     <div className="">
                         <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
-                            Add a new Article
+                            Add a {userId == "new" ? "new " : "update "}Article
                         </h2>
-                        <form action="#">
+                        <form onSubmit={addArticle}>
                             <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
                                 <div className="sm:col-span-2">
                                     <label
@@ -35,6 +44,10 @@ export default function AdminArticle({ auth }) {
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         placeholder="Article's title"
                                         required=""
+                                        onChange={(e) =>
+                                            setData("title", e.target.value)
+                                        }
+                                        value={data.title}
                                     />
                                 </div>
 
@@ -54,13 +67,16 @@ export default function AdminArticle({ auth }) {
                                     ></textarea> */}
                                     <JoditEditor
                                         ref={editor}
-                                        value={content}
+                                        value={data.description}
                                         config={config}
                                         tabIndex={1} // tabIndex of textarea
-                                        onBlur={(newContent) =>
-                                            setContent(newContent)
-                                        } // preferred to use only this option to update the content for performance reasons
-                                        onChange={(newContent) => {}}
+                                        // preferred to use only this option to update the content for performance reasons
+                                        onChange={(e) =>
+                                            setData(
+                                                "description",
+                                                e.target.value
+                                            )
+                                        }
                                     />
                                 </div>
                             </div>

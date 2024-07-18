@@ -34,7 +34,7 @@ function Article() {
                 influence both web designers and developers.
             </p>
             <Link
-                to=""
+                href="/detail"
                 class="text-blue-600 dark:text-blue-500 hover:underline font-medium text-lg inline-flex items-center"
             >
                 Read more

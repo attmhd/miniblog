@@ -2,6 +2,8 @@ import { Link } from "@inertiajs/react";
 import { MdOutlineDataset } from "react-icons/md";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { PiSignOutFill } from "react-icons/pi";
+import { GoGear } from "react-icons/go";
+
 import { useState } from "react";
 
 export default function AdminLayout({ user, children }) {
@@ -19,15 +21,16 @@ export default function AdminLayout({ user, children }) {
                             <Link href="/" className="btn btn-ghost text-xl">
                                 Script Kiddie
                             </Link>
-                        </div>
-                        <div className="flex-none gap-2">
-                            <div className="form-control">
+                            <div className="form-control pl-20">
                                 <input
                                     type="text"
                                     placeholder="Search"
                                     className="input input-bordered w-24 md:w-auto"
                                 />
                             </div>
+                        </div>
+                        <div className="flex-none gap-2">
+                            <span>{user.name}</span>
                             <div className="dropdown dropdown-end">
                                 <div
                                     tabIndex={0}
@@ -46,12 +49,6 @@ export default function AdminLayout({ user, children }) {
                                     className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
                                 >
                                     <li>
-                                        <h1 className=" px-3">{user.name}</h1>
-                                    </li>
-                                    <li>
-                                        <Link>Settings</Link>
-                                    </li>
-                                    <li>
                                         <Link
                                             href={route("logout")}
                                             method="post"
@@ -67,6 +64,7 @@ export default function AdminLayout({ user, children }) {
                 </div>
             </div>
 
+            {/* Sidebar */}
             <aside
                 id="logo-sidebar"
                 className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
@@ -76,7 +74,7 @@ export default function AdminLayout({ user, children }) {
                     <ul className="space-y-2 font-medium">
                         <li>
                             <Link
-                                href="#"
+                                href="/admin"
                                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                             >
                                 <AiOutlineDashboard className="w-5 h-5" />
@@ -112,22 +110,25 @@ export default function AdminLayout({ user, children }) {
                             </div>
                             <ul
                                 id="dropdown-example"
-                                class={` ${
+                                className={` ${
                                     open ? "" : "hidden"
                                 }  py-2 space-y-2`}
                             >
                                 <li>
                                     <Link
                                         href="#"
-                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                        className="indicator flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                                     >
                                         Kategori
+                                        <span className="relative indicator-item badge badge-primary ">
+                                            soon
+                                        </span>
                                     </Link>
                                 </li>
                                 <li>
                                     <Link
                                         href="/admin/artikel"
-                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                        className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                                     >
                                         Artikel
                                     </Link>
@@ -135,9 +136,12 @@ export default function AdminLayout({ user, children }) {
                                 <li>
                                     <Link
                                         href="#"
-                                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                        className="indicator flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                                     >
                                         Postingan
+                                        <span className="relative indicator-item badge badge-primary ">
+                                            soon
+                                        </span>
                                     </Link>
                                 </li>
                             </ul>
@@ -159,6 +163,18 @@ export default function AdminLayout({ user, children }) {
                                 </svg>
                                 <span className="flex-1 ms-3 whitespace-nowrap">
                                     Products
+                                </span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                href="#"
+                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                            >
+                                <GoGear className="size-5" />
+
+                                <span className="flex-1 ms-3 whitespace-nowrap">
+                                    Settings
                                 </span>
                             </Link>
                         </li>
