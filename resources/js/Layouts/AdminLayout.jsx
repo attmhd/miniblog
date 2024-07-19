@@ -1,18 +1,26 @@
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { MdOutlineDataset } from "react-icons/md";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { PiSignOutFill } from "react-icons/pi";
 import { GoGear } from "react-icons/go";
-
+import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import { useState } from "react";
 
-export default function AdminLayout({ user, children }) {
+export default function AdminLayout({ user, children, header }) {
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
         setOpen(!open);
     };
+    const { component } = usePage();
     return (
         <div className="container mx-auto px-4 sm:px-8">
+            {header && (
+                <header className="bg-white shadow">
+                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        {header}
+                    </div>
+                </header>
+            )}
             {/* Navbar */}
             <div className="fixed top-0 z-50 left-0 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                 <div className="px-3 py-3 lg:px-5 lg:pl-3  justify-between">
@@ -25,7 +33,7 @@ export default function AdminLayout({ user, children }) {
                                 <input
                                     type="text"
                                     placeholder="Search"
-                                    className="input input-bordered w-24 md:w-auto"
+                                    className="input input-bordered w-[300px]"
                                 />
                             </div>
                         </div>
@@ -75,9 +83,19 @@ export default function AdminLayout({ user, children }) {
                         <li>
                             <Link
                                 href="/admin"
-                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                className={`flex items-center p-2 ${
+                                    component == "Admin/AdminDashboard"
+                                        ? "font-bold text-white bg-indigo-500 hover:text-gray-900"
+                                        : "text-gray-900"
+                                }  rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group`}
                             >
-                                <AiOutlineDashboard className="w-5 h-5" />
+                                <AiOutlineDashboard
+                                    className={`flex-shrink-0 ${
+                                        component == "Admin/AdminDashboard"
+                                            ? ""
+                                            : "text-gray-500"
+                                    } transition duration-75 group-hover:text-gray-900 size-5`}
+                                />
                                 <span className="ms-3">Dashboard</span>
                             </Link>
                         </li>
@@ -88,47 +106,46 @@ export default function AdminLayout({ user, children }) {
                                 poin
                                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group hover:cursor-pointer"
                             >
-                                <MdOutlineDataset className="w-5 h-5 " />
+                                <MdOutlineDataset className="transition duration-75 group-hover:text-gray-900 size-5 text-gray-500 " />
                                 <span className="flex-1 ms-3 whitespace-nowrap">
                                     Master Data
                                 </span>
-                                <svg
-                                    class="w-3 h-3"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 10 6"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="m1 1 4 4 4-4"
-                                    />
-                                </svg>
+                                {open ? (
+                                    <IoIosArrowUp className="size-5" />
+                                ) : (
+                                    <IoIosArrowDown className="size-5" />
+                                )}
                             </div>
                             <ul
                                 id="dropdown-example"
                                 className={` ${
-                                    open ? "" : "hidden"
-                                }  py-2 space-y-2`}
+                                    open ||
+                                    component == "Admin/Artikel" ||
+                                    component == "Admin/Category"
+                                        ? ""
+                                        : "hidden"
+                                } py-2 space-y-2`}
                             >
                                 <li>
                                     <Link
-                                        href="#"
-                                        className="indicator flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                        href="/admin/category"
+                                        className={`flex items-center w-full p-2 ${
+                                            component == "Admin/Category"
+                                                ? "font-bold text-white bg-indigo-500 hover:text-gray-900"
+                                                : "text-gray-900"
+                                        }  transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700`}
                                     >
                                         Kategori
-                                        <span className="relative indicator-item badge badge-primary ">
-                                            soon
-                                        </span>
                                     </Link>
                                 </li>
                                 <li>
                                     <Link
                                         href="/admin/artikel"
-                                        className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                        className={`flex items-center w-full p-2 ${
+                                            component == "Admin/Artikel"
+                                                ? "font-bold text-white bg-indigo-500 hover:text-gray-900"
+                                                : "text-gray-900"
+                                        }  transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700`}
                                     >
                                         Artikel
                                     </Link>
@@ -168,10 +185,20 @@ export default function AdminLayout({ user, children }) {
                         </li>
                         <li>
                             <Link
-                                href="#"
-                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                href="/admin/setting"
+                                className={`flex items-center p-2 ${
+                                    component == "Admin/Setting"
+                                        ? "font-bold text-white bg-indigo-500 hover:text-gray-900"
+                                        : "text-gray-900"
+                                } rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group`}
                             >
-                                <GoGear className="size-5" />
+                                <GoGear
+                                    className={`flex-shrink-0 ${
+                                        component == "Admin/Setting"
+                                            ? ""
+                                            : "text-gray-500"
+                                    } transition duration-75 group-hover:text-gray-900 size-5`}
+                                />
 
                                 <span className="flex-1 ms-3 whitespace-nowrap">
                                     Settings
@@ -180,10 +207,11 @@ export default function AdminLayout({ user, children }) {
                         </li>
                         <li>
                             <Link
-                                href="#"
+                                href={route("logout")}
+                                method="post"
                                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                             >
-                                <PiSignOutFill className="w-5 h-5" />
+                                <PiSignOutFill className="transition duration-75 group-hover:text-gray-900 size-5 text-gray-500" />
                                 <span className="flex-1 ms-3 whitespace-nowrap">
                                     Sign Out
                                 </span>
@@ -192,8 +220,7 @@ export default function AdminLayout({ user, children }) {
                     </ul>
                 </div>
             </aside>
-
-            {children}
+            <div className="p-4 sm:ml-64 mt-32">{children}</div>
         </div>
     );
 }

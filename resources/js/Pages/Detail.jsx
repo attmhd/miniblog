@@ -2,9 +2,9 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import HomeLayout from "@/Layouts/HomeLayout";
 
-export default function Details() {
+export default function Details({ auth }) {
     return (
-        <HomeLayout>
+        <HomeLayout user={auth.user}>
             <div className="container mx-auto">
                 <main className="pt-8 pb-16  lg:pb-24 bg-white dark:bg-gray-900 antialiased">
                     <div class="flex justify-between px-4 mx-auto max-w-screen-xl ">

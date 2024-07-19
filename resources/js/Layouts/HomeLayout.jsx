@@ -151,7 +151,7 @@ export default function HomeLayout({ user, children }) {
 
                         <li>
                             {user ? (
-                                <>
+                                <Link href="/admin">
                                     <button
                                         className="avatar tooltip tooltip-bottom"
                                         data-tip={user.name}
@@ -172,7 +172,7 @@ export default function HomeLayout({ user, children }) {
                                             </Link>
                                         </li>
                                     </ul> */}
-                                </>
+                                </Link>
                             ) : (
                                 <Link
                                     href="/login"
