@@ -1,8 +1,11 @@
 import { router } from "@inertiajs/react";
 
-export default function DeleteModal({ id, setOpen }) {
+export default function DeleteModal({ idProps, setOpen }) {
     const showAlert = () => {
-        console.log("test alert");
+        setOpen(true);
+        setTimeout(() => {
+            setOpen(false);
+        }, 2000);
     };
     return (
         <>
@@ -60,16 +63,17 @@ export default function DeleteModal({ id, setOpen }) {
                                 data-modal-hide="popup-modal"
                                 onClick={() => {
                                     router.post(
-                                        `/admin/artikel/${id}`,
+                                        `/admin/artikel/${idProps.id}`,
                                         {
                                             _method: "delete",
                                         },
                                         {
                                             onSuccess: () => {
-                                                showAlert, setOpen(false);
+                                                setOpen(false);
                                             },
                                         }
                                     );
+                                    showAlert();
                                 }}
                                 type="button"
                                 className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"

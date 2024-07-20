@@ -26,11 +26,23 @@ export default function AdminArticle({ auth, articles }) {
     const lastPage = articles.last_page;
 
     const [open, setOpen] = useState(false);
+    const [idProps, setIdProps] = useState([
+        {
+            id: null,
+        },
+    ]);
     const [openAlert, setOpenAlert] = useState(false);
+
+    const handleOpen = (id) => {
+        setOpen(true);
+        setIdProps({
+            id: id,
+        });
+    };
 
     return (
         <>
-            {openAlert && <Alert />}
+            {openAlert && <Alert message="Artikel berhasil dihapus." />}
             <AdminLayout user={auth.user}>
                 <Head title="Artikel" />
 
@@ -91,7 +103,7 @@ export default function AdminArticle({ auth, articles }) {
                                                 >
                                                     <button
                                                         onClick={() =>
-                                                            setOpen(true)
+                                                            handleOpen(item.id)
                                                         }
                                                     >
                                                         <GoTrash
@@ -102,10 +114,7 @@ export default function AdminArticle({ auth, articles }) {
                                                     {open && (
                                                         <DeleteModal
                                                             setOpen={setOpen}
-                                                            setOpenAlert={
-                                                                setOpenAlert
-                                                            }
-                                                            id={item.id}
+                                                            idProps={idProps}
                                                         />
                                                     )}
                                                 </div>

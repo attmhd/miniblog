@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{article}', 'destroy')->name('destroy');
         Route::get('/', 'index')->name('index');
         Route::get('/{article}/edit', 'edit')->name('edit');
+        Route::patch('/{article}', 'update')->name('update');
     });
 
     // Admin dashboard routes

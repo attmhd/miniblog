@@ -54,7 +54,10 @@ class ArticleController extends Controller
 
     public function update(Article $article, Request $request)
     {
-        $article->update($request->validated());
+        $article->update($request->validated([
+            'title' => 'required',
+            'description' => 'required',
+        ]));
 
         return redirect()->route('article.index')->with('success', 'Article updated successfully!');
     }

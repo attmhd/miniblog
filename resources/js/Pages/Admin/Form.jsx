@@ -10,10 +10,12 @@ import Alert from "@/Components/Alert";
 export default function Form({ auth, articles }) {
     const page = usePage();
     const currentUrl = page.url;
-    console.log(currentUrl);
-    console.log(articles);
     const editor = useRef(null);
     const [open, setOpen] = useState(false);
+    // const [update, setUpdate] = useState({
+    //     title: articles.title,
+    //     description: articles.description,
+    // });
     const { data, setData, errors } = useForm({
         title: "",
         description: "",
@@ -50,9 +52,18 @@ export default function Form({ auth, articles }) {
         });
     };
 
+    // const updateArticle = (e) => {
+    //     e.preventDefault();
+    //     router.post(`/admin/artikel/${articles.id}`, {
+    //         _method: "patch",
+    //         title: update.title,
+    //         description: update.description,
+    //     });
+    // };
+
     return (
         <>
-            {open && <Alert />}
+            {open && <Alert message="Artikel berhasil dibuat." />}
 
             <AdminLayout user={auth.user}>
                 <section className="bg-white dark:bg-gray-900">
@@ -63,7 +74,13 @@ export default function Form({ auth, articles }) {
                                 : "Update"}{" "}
                             Article
                         </h2>
-                        <form onSubmit={addArticle}>
+                        <form
+                            onSubmit={
+                                currentUrl == "/admin/artikel/new"
+                                    ? addArticle
+                                    : addArticle
+                            }
+                        >
                             <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
                                 <div className="sm:col-span-2">
                                     <label
@@ -86,10 +103,10 @@ export default function Form({ auth, articles }) {
                                                 : articles.title
                                         }
                                     />
-                                    <InputError
+                                    {/* <InputError
                                         message={errors.title}
                                         className="mt-2"
-                                    />
+                                    /> */}
                                 </div>
 
                                 <div className="sm:col-span-2">
