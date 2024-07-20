@@ -22,7 +22,9 @@ export default function Hero() {
                         className="input input-bordered w-full max-w-xs"
                     />
                     <Link>
-                        <PrimaryButton>Subscribe</PrimaryButton>
+                        <PrimaryButton className="w-[180px]">
+                            Subscribe
+                        </PrimaryButton>
                     </Link>
                 </div>
             </div>

@@ -1,7 +1,6 @@
 import { Link } from "@inertiajs/react";
-import { Typography } from "@material-tailwind/react";
 
-function Article() {
+export default function Articles({ id, title, desc }) {
     return (
         <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12">
             <Link
@@ -26,7 +25,7 @@ function Article() {
                 Code
             </Link>
             <h2 class="text-gray-900 dark:text-white text-3xl font-extrabold mb-2">
-                judul
+                {title}
             </h2>
             <p class="text-lg font-normal text-gray-500 dark:text-gray-400 mb-4">
                 Static websites are now used to bootstrap lots of websites and
@@ -55,22 +54,5 @@ function Article() {
                 </svg>
             </Link>
         </div>
-    );
-}
-
-export default function Articles() {
-    return (
-        <>
-            <Typography className=" text-3xl font-bold text-center ">
-                All Article's
-            </Typography>
-            <div id="blog" className=" hero bg-transparent min-h-max">
-                <div className="hero-content grid flex-row lg:grid-cols-3">
-                    <Article />
-                    <Article />
-                    <Article />
-                </div>
-            </div>
-        </>
     );
 }

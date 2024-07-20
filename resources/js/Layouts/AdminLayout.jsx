@@ -22,7 +22,7 @@ export default function AdminLayout({ user, children, header }) {
                 </header>
             )}
             {/* Navbar */}
-            <div className="fixed top-0 z-50 left-0 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+            <div className="fixed top-0 z-40 left-0 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                 <div className="px-3 py-3 lg:px-5 lg:pl-3  justify-between">
                     <div className="navbar ">
                         <div className="flex-1">
@@ -75,7 +75,7 @@ export default function AdminLayout({ user, children, header }) {
             {/* Sidebar */}
             <aside
                 id="logo-sidebar"
-                className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+                className="fixed top-0 left-0 z-30 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
                 aria-label="Sidebar"
             >
                 <div className="h-full px-3 pb-4 pt-4 overflow-y-auto bg-white dark:bg-gray-800">

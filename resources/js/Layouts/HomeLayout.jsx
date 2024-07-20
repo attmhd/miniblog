@@ -3,9 +3,19 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import { Link } from "@inertiajs/react";
 import { BiCategory } from "react-icons/bi";
 
-export default function HomeLayout({ user, children }) {
+export default function HomeLayout({ user, children, header }) {
     return (
         <div className="container mx-auto">
+            <div className="container mx-auto px-4 sm:px-8">
+                {header && (
+                    <header className="bg-white shadow">
+                        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                            {header}
+                        </div>
+                    </header>
+                )}
+            </div>
+
             {/* Navbar */}
             <nav className="navbar bg-base-100 px-4 py-8 ">
                 <div className="navbar-start">

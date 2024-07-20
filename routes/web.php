@@ -19,21 +19,19 @@ use Inertia\Inertia;
 
 
 
-Route::get('/', function () {
-    return Inertia::render('Home');
-    });
+Route::get('/',[ArticleController::class, 'getAll'])->name('article.getAll');
 
-Route::get('/detail', function () {
-    return Inertia::render('Detail');
-    });
+// Route::get(`/detail/{id}`,[ArticleController::class, 'getById'])->name('article.getById');
 
-Route::get('/tst', function () {
-    return Inertia::render('Auth/SignIn');
-    });
+
+// Route::get('/tst', function () {
+//     return Inertia::render('Auth/SignIn');
+//     });
 
 
 
 
+Route::get('/detail/{id}',[ArticleController::class, 'getById'])->name('article.getById');
 
 
 Route::middleware('auth')->group(function () {
@@ -42,6 +40,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::post('/admin/artikel/new',[ArticleController::class, 'store'])->name('article.store');
+    Route::get('/admin/artikel',[ArticleController::class, 'index'])->name('article.index');
+    Route::get('/admin/artikel/id={id}',[ArticleController::class, 'edit'])->name('article.edit');
+    
 
     Route::get('/admin', function () {
     return Inertia::render('Admin/AdminDashboard');});
@@ -49,12 +50,9 @@ Route::middleware('auth')->group(function () {
     return Inertia::render('Admin/Setting');});
     Route::get('/admin/category', function () {
     return Inertia::render('Admin/Category');});
-    Route::get('/admin/artikel', function () {
-    return Inertia::render('Admin/Artikel');});
-    Route::get('/admin/artikel/{id}', function ($id) {
-    return Inertia::render('Admin/Form', ['userId' => $id,]);});
-
     
+    Route::get('/admin/artikel/new', function () {
+    return Inertia::render('Admin/Form');});
 });
 
 require __DIR__.'/auth.php';

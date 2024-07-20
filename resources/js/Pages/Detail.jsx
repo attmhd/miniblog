@@ -1,8 +1,9 @@
 import PrimaryButton from "@/Components/PrimaryButton";
-import SecondaryButton from "@/Components/SecondaryButton";
 import HomeLayout from "@/Layouts/HomeLayout";
+import ReactHtmlParser from "react-html-parser";
 
-export default function Details({ auth }) {
+export default function Details({ auth, articles }) {
+    console.log(articles);
     return (
         <HomeLayout user={auth.user}>
             <div className="container mx-auto">
@@ -42,10 +43,12 @@ export default function Details({ auth }) {
                                     </div>
                                 </address>
                                 <h1 class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
-                                    judul
-                                </h1>
+                                    {articles.title}
+                                </h1>{" "}
                             </header>
-                            <p class=" text-justify text-pretty py-10">desc</p>
+                            <p class=" text-justify text-pretty py-10">
+                                {ReactHtmlParser(articles.description)}
+                            </p>
 
                             <section class="not-format">
                                 <div class="flex justify-between items-center mb-6">
