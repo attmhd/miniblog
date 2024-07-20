@@ -9,48 +9,60 @@ use Inertia\Inertia;
 class ArticleController extends Controller
 {
 
-    public function index(){
-        return Inertia::render('Admin/Artikel',[
-            'articles' => article::latest()->paginate(5)
+    public function index()
+    {
+        $articles = Article::latest()->paginate(5);
+        return Inertia::render('Admin/Artikel', [
+            'articles' => $articles,
         ]);
     }
 
-
-    public function edit(article $id){
-        return Inertia::render('Admin/Form',[
-            'articles' => $id,
-        ]
-    );
+    public function edit(Article $article)
+    {
+        return Inertia::render('Admin/Form', [
+            'articles' => $article,
+        ]);
     }
 
-    public function getAll(){
-    return Inertia::render('Home',[
-        'articles' => article::all()
-    ]);
+    public function getAll()
+    {
+        $articles = Article::all();
+        return Inertia::render('Home', [
+            'articles' => $articles,
+        ]);
     }
 
-    public function getById(article $id){
-        return Inertia::render('Detail',[
-        'articles' => $id,
-    ]);
+    public function getById(Article $article)
+    {
+        return Inertia::render('Detail', [
+            'articles' => $article,
+        ]);
     }
 
-    public function store(Request $req)  {
-        $data = $req->validate([
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
             'title' => 'required',
             'description' => 'required',
         ]);
 
-        article::create($data);
+        Article::create($validatedData);
+
+        return redirect()->route('article.index')->with('success', 'Article created successfully!');
+    }
+    
+
+    public function update(Article $article, Request $request)
+    {
+        $article->update($request->validated());
+
+        return redirect()->route('article.index')->with('success', 'Article updated successfully!');
     }
 
-    // public function destroy($id){
-    //     $post = article::findOrfail($id);
+    public function destroy(Article $article)
+    {
+        $article->delete();
 
-    //     $post->delete();
-
-    //     if($post){
-    //         return Redirect::route('article.index');
-    //     }
-    // }
+        return redirect()->route('article.index')->with('success', 'Article deleted successfully!');
+    }
 }

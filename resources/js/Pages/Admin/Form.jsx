@@ -3,8 +3,9 @@ import { Link, useForm, usePage } from "@inertiajs/react";
 import React, { useState, useRef, useMemo } from "react";
 import JoditEditor from "jodit-react";
 import { router } from "@inertiajs/react";
-import { FaCheck } from "react-icons/fa6";
+
 import InputError from "@/Components/InputError";
+import Alert from "@/Components/Alert";
 
 export default function Form({ auth, articles }) {
     const page = usePage();
@@ -42,7 +43,6 @@ export default function Form({ auth, articles }) {
     const addArticle = (e) => {
         e.preventDefault();
         router.post("/admin/artikel/new", data);
-        console.log(data);
 
         setData({
             title: "",
@@ -52,14 +52,7 @@ export default function Form({ auth, articles }) {
 
     return (
         <>
-            {open && (
-                <div className="toast toast-top toast-center z-50">
-                    <div className="alert alert-success">
-                        <span>Artikel berhasil dibuat.</span>
-                        <FaCheck />
-                    </div>
-                </div>
-            )}
+            {open && <Alert />}
 
             <AdminLayout user={auth.user}>
                 <section className="bg-white dark:bg-gray-900">
