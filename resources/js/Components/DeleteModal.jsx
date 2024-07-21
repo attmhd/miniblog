@@ -1,6 +1,6 @@
 import { router } from "@inertiajs/react";
 
-export default function DeleteModal({ idProps, setOpen }) {
+export default function DeleteModal({ idProps, setOpen, url }) {
     const showAlert = () => {
         setOpen(true);
         setTimeout(() => {
@@ -63,7 +63,7 @@ export default function DeleteModal({ idProps, setOpen }) {
                                 data-modal-hide="popup-modal"
                                 onClick={() => {
                                     router.post(
-                                        `/admin/artikel/${idProps.id}`,
+                                        `${url}${idProps.id}`,
                                         {
                                             _method: "delete",
                                         },

@@ -4,8 +4,7 @@ import HomeLayout from "@/Layouts/HomeLayout";
 import { Head } from "@inertiajs/react";
 import { Typography } from "@material-tailwind/react";
 
-export default function Home({ auth, articles }) {
-    console.log(articles);
+export default function Home({ auth, category, articles }) {
     return (
         <HomeLayout user={auth.user}>
             <Head title="Home" />
@@ -18,7 +17,7 @@ export default function Home({ auth, articles }) {
                     {articles.map((item, i) => {
                         return (
                             <div key={i}>
-                                <Articles title={item.title} />
+                                <Articles title={item.title} id={item.id} />
                             </div>
                         );
                     })}

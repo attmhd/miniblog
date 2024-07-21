@@ -129,6 +129,7 @@ export default function HomeLayout({ user, children, header }) {
                                         <h1 className=" text-lg">Category</h1>
                                     </div>
                                 </summary>
+                                {}
                                 <ul className="p-2">
                                     <li>
                                         <Link>Kategori 1</Link>

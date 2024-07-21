@@ -1,6 +1,5 @@
 import PrimaryButton from "@/Components/PrimaryButton";
 import HomeLayout from "@/Layouts/HomeLayout";
-import ReactHtmlParser from "react-html-parser";
 
 export default function Details({ auth, articles }) {
     console.log(articles);
@@ -46,9 +45,11 @@ export default function Details({ auth, articles }) {
                                     {articles.title}
                                 </h1>{" "}
                             </header>
-                            <p class=" text-justify text-pretty py-10">
-                                {ReactHtmlParser(articles.description)}
-                            </p>
+                            <div
+                                dangerouslySetInnerHTML={{
+                                    __html: articles.description,
+                                }}
+                            />
 
                             <section class="not-format">
                                 <div class="flex justify-between items-center mb-6">

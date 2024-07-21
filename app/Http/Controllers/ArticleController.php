@@ -12,14 +12,14 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::latest()->paginate(5);
-        return Inertia::render('Admin/Artikel', [
+        return Inertia::render('Admin/Article/Artikel', [
             'articles' => $articles,
         ]);
     }
 
     public function edit(Article $article)
     {
-        return Inertia::render('Admin/Form', [
+        return Inertia::render('Admin/Article/Form', [
             'articles' => $article,
         ]);
     }
@@ -30,6 +30,7 @@ class ArticleController extends Controller
         return Inertia::render('Home', [
             'articles' => $articles,
         ]);
+
     }
 
     public function getById(Article $article)
@@ -54,7 +55,7 @@ class ArticleController extends Controller
 
     public function update(Article $article, Request $request)
     {
-        $article->update($request->validated([
+        $article->update($request->validate([
             'title' => 'required',
             'description' => 'required',
         ]));

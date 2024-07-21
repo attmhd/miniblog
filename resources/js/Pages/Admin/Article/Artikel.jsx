@@ -8,6 +8,7 @@ import { useState } from "react";
 import { router } from "@inertiajs/react";
 import DeleteModal from "@/Components/DeleteModal";
 import Alert from "@/Components/Alert";
+import { data } from "autoprefixer";
 
 function formatDate(dateString) {
     const date = new Date(dateString);
@@ -22,8 +23,10 @@ function padZero(value) {
 }
 
 export default function AdminArticle({ auth, articles }) {
+    console.log(articles.links.length);
     const currentPage = articles.current_page;
     const lastPage = articles.last_page;
+    const dataLen = articles.links.length - 1;
 
     const [open, setOpen] = useState(false);
     const [idProps, setIdProps] = useState([
@@ -115,6 +118,9 @@ export default function AdminArticle({ auth, articles }) {
                                                         <DeleteModal
                                                             setOpen={setOpen}
                                                             idProps={idProps}
+                                                            url={
+                                                                "/admin/artikel/"
+                                                            }
                                                         />
                                                     )}
                                                 </div>
@@ -137,7 +143,7 @@ export default function AdminArticle({ auth, articles }) {
 
                             if (
                                 (i === 0 && currentPage === 1) ||
-                                (i === lastPage + 1 && currentPage === 4)
+                                (i === dataLen && currentPage === lastPage)
                             ) {
                                 classNames.push("hidden");
                             }

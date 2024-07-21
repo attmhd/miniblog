@@ -120,8 +120,8 @@ export default function AdminLayout({ user, children, header }) {
                                 id="dropdown-example"
                                 className={` ${
                                     open ||
-                                    component == "Admin/Artikel" ||
-                                    component == "Admin/Category"
+                                    component == "Admin/Article/Artikel" ||
+                                    component == "Admin/Category/Category"
                                         ? ""
                                         : "hidden"
                                 } py-2 space-y-2`}
@@ -130,7 +130,8 @@ export default function AdminLayout({ user, children, header }) {
                                     <Link
                                         href="/admin/category"
                                         className={`flex items-center w-full p-2 ${
-                                            component == "Admin/Category"
+                                            component ==
+                                            "Admin/Category/Category"
                                                 ? "font-bold text-white bg-indigo-500 hover:text-gray-900"
                                                 : "text-gray-900"
                                         }  transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700`}
@@ -142,7 +143,7 @@ export default function AdminLayout({ user, children, header }) {
                                     <Link
                                         href="/admin/artikel"
                                         className={`flex items-center w-full p-2 ${
-                                            component == "Admin/Artikel"
+                                            component == "Admin/Article/Artikel"
                                                 ? "font-bold text-white bg-indigo-500 hover:text-gray-900"
                                                 : "text-gray-900"
                                         }  transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700`}
@@ -181,6 +182,9 @@ export default function AdminLayout({ user, children, header }) {
                                 <span className="flex-1 ms-3 whitespace-nowrap">
                                     Products
                                 </span>
+                                <span className="relative indicator-item badge badge-primary ">
+                                    soon
+                                </span>
                             </Link>
                         </li>
                         <li>
@@ -202,6 +206,9 @@ export default function AdminLayout({ user, children, header }) {
 
                                 <span className="flex-1 ms-3 whitespace-nowrap">
                                     Settings
+                                </span>
+                                <span className="relative indicator-item badge badge-primary ">
+                                    soon
                                 </span>
                             </Link>
                         </li>

@@ -33,7 +33,7 @@ export default function Articles({ id, title, desc }) {
                 influence both web designers and developers.
             </p>
             <Link
-                href="/detail"
+                href={`/detail/${id}`}
                 class="text-blue-600 dark:text-blue-500 hover:underline font-medium text-lg inline-flex items-center"
             >
                 Read more
