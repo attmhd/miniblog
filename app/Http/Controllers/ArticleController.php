@@ -12,16 +12,19 @@ class ArticleController extends Controller
 
     public function index()
     {
-        $articles = Article::latest()->paginate(5);
+        $articles = Article::with('category')->paginate(5);
         return Inertia::render('Admin/Article/Artikel', [
             'articles' => $articles,
         ]);
     }
 
-    public function edit(Article $article)
+    public function addAndEdit(Article $article)
     {
+        $category = category::all();
         return Inertia::render('Admin/Article/Form', [
             'articles' => $article,
+            'category' => $category,
+          
         ]);
     }
 
@@ -34,17 +37,20 @@ class ArticleController extends Controller
 
     }
 
-    public function getById(Article $article)
+    public function getById(int $article)
     {
+        $articles = Article::with('user')->findOrFail($article);
         return Inertia::render('Detail', [
-            'articles' => $article,
+            'articles' => $articles,
         ]);
     }
 
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            'user_id' => 'required',
             'title' => 'required',
+            'category_id' => 'required',
             'description' => 'required',
         ]);
 
@@ -59,6 +65,7 @@ class ArticleController extends Controller
         $article->update($request->validate([
             'title' => 'required',
             'description' => 'required',
+            'category_id' => 'required',
         ]));
 
         return redirect()->route('article.index')->with('success', 'Article updated successfully!');

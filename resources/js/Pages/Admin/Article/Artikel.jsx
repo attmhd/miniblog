@@ -1,6 +1,6 @@
 import AdminLayout from "@/Layouts/AdminLayout";
 import { MdOutlinePostAdd } from "react-icons/md";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import { IoEyeOutline } from "react-icons/io5";
 import { LuPencil } from "react-icons/lu";
 import { GoTrash } from "react-icons/go";
@@ -21,7 +21,8 @@ function padZero(value) {
 }
 
 export default function AdminArticle({ auth, articles }) {
-    console.log(articles.links.length);
+    console.log(articles);
+    // const lenData = articles.length;
     const currentPage = articles.current_page;
     const lastPage = articles.last_page;
     const dataLen = articles.links.length - 1;
@@ -67,66 +68,60 @@ export default function AdminArticle({ auth, articles }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {articles.data.map((item, index) => {
-                                return (
-                                    <tr key={index} className="hover">
-                                        <th>{item.id}</th>
-                                        <td>{formatDate(item.created_at)} </td>
-                                        <td>{item.title}</td>
-                                        <td>Kategori</td>
-                                        <td>
-                                            <div className=" flex justify-start gap-4">
-                                                <div
-                                                    className="tooltip"
-                                                    data-tip="View"
+                            {articles.data.map((items) => (
+                                <tr key={items.id}>
+                                    <th>{items.id}</th>
+                                    <td>{formatDate(items.created_at)} </td>
+                                    <td>{items.title}</td>
+                                    <td>{items.category.name}</td>
+                                    <td>
+                                        <div className=" flex justify-start gap-4">
+                                            <div
+                                                className="tooltip"
+                                                data-tip="View"
+                                            >
+                                                <Link
+                                                    href={`/detail/${items.id}`}
                                                 >
-                                                    <Link
-                                                        href={`/detail/${item.id}`}
-                                                    >
-                                                        <IoEyeOutline
-                                                            size={18}
-                                                        />
-                                                    </Link>
-                                                </div>
-                                                <div
-                                                    className="tooltip"
-                                                    data-tip="Edit"
-                                                >
-                                                    <Link
-                                                        href={`/admin/artikel/${item.id}/edit`}
-                                                    >
-                                                        <LuPencil size={15} />
-                                                    </Link>
-                                                </div>
-                                                <div
-                                                    className="tooltip"
-                                                    data-tip="Delete"
-                                                >
-                                                    <button
-                                                        onClick={() =>
-                                                            handleOpen(item.id)
-                                                        }
-                                                    >
-                                                        <GoTrash
-                                                            color="red"
-                                                            size={16}
-                                                        />
-                                                    </button>
-                                                    {open && (
-                                                        <DeleteModal
-                                                            setOpen={setOpen}
-                                                            idProps={idProps}
-                                                            url={
-                                                                "/admin/artikel/"
-                                                            }
-                                                        />
-                                                    )}
-                                                </div>
+                                                    <IoEyeOutline size={18} />
+                                                </Link>
                                             </div>
-                                        </td>
-                                    </tr>
-                                );
-                            })}
+                                            <div
+                                                className="tooltip"
+                                                data-tip="Edit"
+                                            >
+                                                <Link
+                                                    href={`/admin/artikel/${items.id}/edit`}
+                                                >
+                                                    <LuPencil size={15} />
+                                                </Link>
+                                            </div>
+                                            <div
+                                                className="tooltip"
+                                                data-tip="Delete"
+                                            >
+                                                <button
+                                                    onClick={() =>
+                                                        handleOpen(items.id)
+                                                    }
+                                                >
+                                                    <GoTrash
+                                                        color="red"
+                                                        size={16}
+                                                    />
+                                                </button>
+                                                {open && (
+                                                    <DeleteModal
+                                                        setOpen={setOpen}
+                                                        idProps={idProps}
+                                                        url={"/admin/artikel/"}
+                                                    />
+                                                )}
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>

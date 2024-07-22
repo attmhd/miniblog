@@ -14,12 +14,18 @@ importers:
       '@material-tailwind/react':
         specifier: ^2.1.9
         version: 2.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      font-awesome:
+        specifier: ^4.7.0
+        version: 4.7.0
       html-react-parser:
         specifier: ^5.1.12
         version: 5.1.12(react@18.3.1)
       jodit-react:
         specifier: ^4.1.2
         version: 4.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-froala-wysiwyg:
+        specifier: ^4.2.1
+        version: 4.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-html-parser:
         specifier: ^2.0.2
         version: 2.0.2(react@18.3.1)
@@ -665,6 +671,9 @@ packages:
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
 
+  create-react-class@15.7.0:
+    resolution: {integrity: sha512-QZv4sFWG9S5RUvkTYWbflxeZX+JG7Cz0Tn33rQBJ+WFQTqTfUTjMjiv9tnfXazjsO5r0KhPs+AqCjyrQX6h2ng==}
+
   cross-spawn@7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
     engines: {node: '>= 8'}
@@ -813,6 +822,10 @@ packages:
       debug:
         optional: true
 
+  font-awesome@4.7.0:
+    resolution: {integrity: sha512-U6kGnykA/6bFmg1M/oT9EkFeIYv7JlX3bozwQJWiiLz6L0w3F5vBVPxHlwyX/vtNq1ckcpRKOB9f2Qal/VtFpg==}
+    engines: {node: '>=0.10.3'}
+
   foreground-child@3.2.1:
     resolution: {integrity: sha512-PXUUyLqrR2XCWICfv6ukppP96sdFwWbNEnfEMt7jNsISjMsvaLNinAHNDYyvkyU+SZG2BTSbT5NjG+vZslfGTA==}
     engines: {node: '>=14'}
@@ -832,6 +845,9 @@ packages:
 
   framesync@6.0.1:
     resolution: {integrity: sha512-fUY88kXvGiIItgNC7wcTOl0SNRCVXMKSWW2Yzfmn7EKNc+MpCzcz9DhdHcdjbrtN3c6R4H5dTY2jiCpPdysEjA==}
+
+  froala-editor@4.2.1:
+    resolution: {integrity: sha512-Ov8XdJpP6X+hernpF89CzkDHBiXEsBzFUX2ftmG2QLw+2ZqiK2RirUbUy2IABxBXZrBzHgzm8GZyZ5rd+cAU5Q==}
 
   from@0.1.7:
     resolution: {integrity: sha512-twe20eF1OxVxp/ML/kq2p1uc6KvFK/+vs8WjEbeKmV2He22MKm7YF2ANIt+EOqhJ5L3K/SuuPhk0hWQDjOM23g==}
@@ -1174,6 +1190,12 @@ packages:
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
     peerDependencies:
       react: ^18.3.1
+
+  react-froala-wysiwyg@4.2.1:
+    resolution: {integrity: sha512-4Rhe09TGeDrmY7CrDFD1JV4bY2RiXhXkxgwbwBVIzMKWu8JvR6XHOpFcl83QJnq3NkOn7FEfCnaEPcZkCsf/OQ==}
+    peerDependencies:
+      react: ~0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ~0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
 
   react-html-parser@2.0.2:
     resolution: {integrity: sha512-XeerLwCVjTs3njZcgCOeDUqLgNIt/t+6Jgi5/qPsO/krUWl76kWKXMeVs2LhY2gwM6X378DkhLjur0zUQdpz0g==}
@@ -1995,6 +2017,11 @@ snapshots:
 
   convert-source-map@2.0.0: {}
 
+  create-react-class@15.7.0:
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+
   cross-spawn@7.0.3:
     dependencies:
       path-key: 3.1.1
@@ -2155,6 +2182,8 @@ snapshots:
 
   follow-redirects@1.15.6: {}
 
+  font-awesome@4.7.0: {}
+
   foreground-child@3.2.1:
     dependencies:
       cross-spawn: 7.0.3
@@ -2184,6 +2213,8 @@ snapshots:
   framesync@6.0.1:
     dependencies:
       tslib: 2.6.3
+
+  froala-editor@4.2.1: {}
 
   from@0.1.7: {}
 
@@ -2481,6 +2512,13 @@ snapshots:
       loose-envify: 1.4.0
       react: 18.3.1
       scheduler: 0.23.2
+
+  react-froala-wysiwyg@4.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      create-react-class: 15.7.0
+      froala-editor: 4.2.1
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   react-html-parser@2.0.2(react@18.3.1):
     dependencies:

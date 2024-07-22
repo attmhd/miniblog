@@ -31,16 +31,14 @@ export default function Details({ auth, articles }) {
                                             alt="Attan Muhammad"
                                         />
                                         <div>
-                                            <a
-                                                href="#"
+                                            <span
                                                 rel="author"
                                                 class="text-xl font-bold text-gray-900 dark:text-white"
                                             >
-                                                Muhammad Attan
-                                            </a>
+                                                {articles.user.name}
+                                            </span>
                                             <p class="text-base text-gray-500 dark:text-gray-400">
-                                                Backend Developer, CTO at
-                                                Wannabe
+                                                {articles.user.occupation}
                                             </p>
                                             <p class="text-base text-gray-500 dark:text-gray-400">
                                                 {formatDate(

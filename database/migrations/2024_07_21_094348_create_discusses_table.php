@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('discusses', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->text('comment');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
+
         });
     }
 

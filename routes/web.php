@@ -18,6 +18,8 @@ use Inertia\Inertia;
 |
 */
 
+Route::get('/tst', function () {
+    return Inertia::render('Tst');});
 
 
 // Article routes
@@ -51,11 +53,11 @@ Route::middleware('auth')->group(function () {
 
      // Article admin routes
     Route::controller(ArticleController::class)->prefix('admin/artikel')->name('article.')->group(function () {
-        Route::get('/new', 'edit')->name('edit');
+        Route::get('/new', 'addAndEdit')->name('addAndEdit');
         Route::post('/new', 'store')->name('store');
         Route::delete('/{article}', 'destroy')->name('destroy');
         Route::get('/', 'index')->name('index');
-        Route::get('/{article}/edit', 'edit')->name('edit');
+        Route::get('/{article}/edit', 'addAndEdit')->name('addAndEdit');
         Route::patch('/{article}', 'update')->name('update');
     });
 

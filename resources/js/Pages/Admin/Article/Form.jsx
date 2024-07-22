@@ -6,18 +6,23 @@ import { router } from "@inertiajs/react";
 import InputError from "@/Components/InputError";
 import Alert from "@/Components/Alert";
 
-export default function Form({ auth, articles, categories }) {
+export default function Form({ auth, articles, category }) {
+    console.log(articles.category_id);
     const page = usePage();
     const currentUrl = page.url;
     const editor = useRef(null);
     const [open, setOpen] = useState(false);
+
     const [update, setUpdate] = useState({
         title: articles.title,
         description: articles.description,
+        category_id: articles.category_id,
     });
     const { data, setData, errors } = useForm({
         title: "",
+        user_id: auth.user.id,
         description: "",
+        category_id: category.id,
     });
 
     const showAlert = () => {
@@ -30,8 +35,13 @@ export default function Form({ auth, articles, categories }) {
     const handleChanges = (e) => {
         setData({
             ...data,
-            [e.target.name]: e.target.value,
+            title: e.target.value,
         });
+    };
+
+    const handleCat = (e) => {
+        data.category_id = parseInt(e.target.value, 20);
+        setData({ ...data, selectId });
     };
 
     const handleChangeUpdate = (e) => {
@@ -39,6 +49,11 @@ export default function Form({ auth, articles, categories }) {
             ...update,
             title: e.target.value,
         });
+    };
+
+    const handleUpdateCat = (e) => {
+        update.category_id = parseInt(e.target.value, 20);
+        setUpdate({ ...update, selectId });
     };
 
     const handleUpdateContent = (datas) => {
@@ -58,10 +73,12 @@ export default function Form({ auth, articles, categories }) {
     const addArticle = (e) => {
         e.preventDefault();
         router.post("/admin/artikel/new", data);
+        console.log(data);
 
         setData({
             title: "",
             description: "",
+            category_id: "",
         });
     };
 
@@ -71,11 +88,15 @@ export default function Form({ auth, articles, categories }) {
             _method: "patch",
             title: update.title,
             description: update.description,
+            category_id: update.category_id,
         });
+
+        console.log(update);
 
         setUpdate({
             title: "",
             description: "",
+            category_id: "",
         });
     };
 
@@ -109,6 +130,42 @@ export default function Form({ auth, articles, categories }) {
                             }
                         >
                             <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                                <div
+                                    className={`sm:col-span-2 ${
+                                        currentUrl != "/admin/artikel/new" &&
+                                        "hidden"
+                                    }`}
+                                >
+                                    <label
+                                        for="name"
+                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Author
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="author"
+                                        id="author"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        placeholder={data.user_id}
+                                        required=""
+                                        disabled
+                                        onChange={
+                                            currentUrl ==
+                                                "/admin/artikel/new" &&
+                                            handleChanges
+                                        }
+                                        value={
+                                            currentUrl ==
+                                                "/admin/artikel/new" &&
+                                            data.user_id
+                                        }
+                                    />
+                                    {/* <InputError
+                                        message={errors.title}
+                                        className="mt-2"
+                                    /> */}
+                                </div>
                                 <div className="sm:col-span-2">
                                     <label
                                         for="name"
@@ -139,6 +196,7 @@ export default function Form({ auth, articles, categories }) {
                                         className="mt-2"
                                     /> */}
                                 </div>
+
                                 <div className="sm:col-span-2">
                                     <label
                                         for="name"
@@ -146,18 +204,28 @@ export default function Form({ auth, articles, categories }) {
                                     >
                                         Category
                                     </label>
-                                    <select className="select select-bordered w-full">
+                                    <select
+                                        className="select select-bordered w-full"
+                                        name="category_id"
+                                        value={
+                                            currentUrl == "/admin/artikel/new"
+                                                ? data.category_id
+                                                : update.category_id
+                                        }
+                                        onChange={
+                                            currentUrl == "/admin/artikel/new"
+                                                ? handleCat
+                                                : handleUpdateCat
+                                        }
+                                    >
                                         <option disabled selected>
-                                            Categories name
+                                            Choose categories name
                                         </option>
-                                        <option>Java</option>
-                                        <option>Go</option>
-                                        <option>C</option>
-                                        <option>C#</option>
-                                        <option>C++</option>
-                                        <option>Rust</option>
-                                        <option>JavaScript</option>
-                                        <option>Python</option>
+                                        {category.map((items, i) => (
+                                            <option key={i}>
+                                                {items.id} - {items.name}
+                                            </option>
+                                        ))}
                                     </select>
                                 </div>
                                 <div className="sm:col-span-2">

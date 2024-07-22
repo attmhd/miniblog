@@ -5,6 +5,8 @@ import { router } from "@inertiajs/react";
 
 import Alert from "@/Components/Alert";
 import ErrorAlert from "@/Components/ErrorAlert";
+import FroalaEditor from "react-froala-wysiwyg";
+import FroalaEditorA from "react-froala-wysiwyg/FroalaEditorA";
 
 export default function Form({ auth, category }) {
     const page = usePage();
@@ -133,6 +135,8 @@ export default function Form({ auth, category }) {
                                         }
                                     />
                                 </div>
+
+                                <div className="sm:col-span-2"></div>
                             </div>
                             <button
                                 type="submit"
