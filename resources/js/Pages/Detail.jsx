@@ -1,8 +1,21 @@
 import PrimaryButton from "@/Components/PrimaryButton";
 import HomeLayout from "@/Layouts/HomeLayout";
+import HTMLReactParser from "html-react-parser";
 
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const formattedDate = `${padZero(date.getDate())}-${padZero(
+        date.getMonth() + 1
+    )}-${date.getFullYear()}`;
+    return formattedDate;
+}
+
+function padZero(value) {
+    return String(value).padStart(2, "0");
+}
 export default function Details({ auth, articles }) {
     console.log(articles);
+
     return (
         <HomeLayout user={auth.user}>
             <div className="container mx-auto">
@@ -30,13 +43,9 @@ export default function Details({ auth, articles }) {
                                                 Wannabe
                                             </p>
                                             <p class="text-base text-gray-500 dark:text-gray-400">
-                                                <time
-                                                    pubdate
-                                                    datetime="2024-07-02"
-                                                    title="July 2nd, 2024"
-                                                >
-                                                    July 2, 2024
-                                                </time>
+                                                {formatDate(
+                                                    articles.created_at
+                                                )}
                                             </p>
                                         </div>
                                     </div>
@@ -45,12 +54,7 @@ export default function Details({ auth, articles }) {
                                     {articles.title}
                                 </h1>{" "}
                             </header>
-                            <div
-                                dangerouslySetInnerHTML={{
-                                    __html: articles.description,
-                                }}
-                            />
-
+                            <div>{HTMLReactParser(articles.description)}</div>
                             <section class="not-format">
                                 <div class="flex justify-between items-center mb-6">
                                     <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">

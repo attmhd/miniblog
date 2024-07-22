@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { router } from "@inertiajs/react";
 
 import Alert from "@/Components/Alert";
+import ErrorAlert from "@/Components/ErrorAlert";
 
 export default function Form({ auth, category }) {
     const page = usePage();
@@ -33,14 +34,26 @@ export default function Form({ auth, category }) {
     const handleUpdateChanges = (e) => {
         setUpdate({
             ...update,
-            [e.target.name]: e.target.value,
+            name: e.target.value,
         });
     };
 
     const addCategory = (e) => {
         e.preventDefault();
-        router.post("/admin/category/new", data);
-
+        router.post(
+            "/admin/category/new",
+            {
+                name: data.name,
+            }
+            // {
+            //     onSuccess: () => {
+            //         showAlert();
+            //     },
+            //     // onError: () => {
+            //     //     showAlert();
+            //     // },
+            // }
+        );
         setData({
             name: "",
         });
@@ -54,7 +67,7 @@ export default function Form({ auth, category }) {
         });
 
         setUpdate({
-            name: category.name,
+            name: "",
         });
     };
 
@@ -68,6 +81,13 @@ export default function Form({ auth, category }) {
                             : "diupdate."
                     }`}
                 />
+                // <ErrorAlert
+                //     message={`Kategori gagal ${
+                //         currentUrl == "/admin/category/new"
+                //             ? "dibuat."
+                //             : "diupdate."
+                //     }`}
+                // />
             )}
 
             <AdminLayout user={auth.user}>
@@ -102,12 +122,12 @@ export default function Form({ auth, category }) {
                                         placeholder="Categories name"
                                         required=""
                                         onChange={
-                                            currentUrl == "/admin/artikel/new"
+                                            currentUrl == "/admin/category/new"
                                                 ? handleChanges
                                                 : handleUpdateChanges
                                         }
                                         value={
-                                            currentUrl == "/admin/artikel/new"
+                                            currentUrl == "/admin/category/new"
                                                 ? data.name
                                                 : update.name
                                         }
@@ -116,7 +136,7 @@ export default function Form({ auth, category }) {
                             </div>
                             <button
                                 type="submit"
-                                class=" mt-7 btn btn-primary"
+                                className=" mt-7 btn btn-primary"
                                 onClick={showAlert}
                             >
                                 Save

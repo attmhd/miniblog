@@ -6,8 +6,7 @@ import { router } from "@inertiajs/react";
 import InputError from "@/Components/InputError";
 import Alert from "@/Components/Alert";
 
-export default function Form({ auth, articles, category }) {
-    console.log(category);
+export default function Form({ auth, articles, categories }) {
     const page = usePage();
     const currentUrl = page.url;
     const editor = useRef(null);
@@ -147,86 +146,20 @@ export default function Form({ auth, articles, category }) {
                                     >
                                         Category
                                     </label>
-                                    <div className="flex justify-between gap-2">
-                                        <input
-                                            type="text"
-                                            name="cat"
-                                            id="title"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="Categories name"
-                                            required=""
-                                        />
-                                        <button
-                                            id="dropdownDefaultButton"
-                                            data-dropdown-toggle="dropdown"
-                                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                            type="button"
-                                        >
-                                            <svg
-                                                className="w-2.5 h-2.5 "
-                                                aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 10 6"
-                                            >
-                                                <path
-                                                    stroke="currentColor"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth={2}
-                                                    d="m1 1 4 4 4-4"
-                                                />
-                                            </svg>
-                                        </button>
-                                    </div>
-
-                                    <div className="flex justify-end">
-                                        {/* Dropdown menu */}
-                                        <div
-                                            id="dropdown"
-                                            className="z-10 mt-4  bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-                                        >
-                                            <ul
-                                                className="py-2 text-sm text-gray-700 dark:text-gray-200"
-                                                aria-labelledby="dropdownDefaultButton"
-                                            >
-                                                <li>
-                                                    <a
-                                                        href="#"
-                                                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                    >
-                                                        Dashboard
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a
-                                                        href="#"
-                                                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                    >
-                                                        Settings
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a
-                                                        href="#"
-                                                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                    >
-                                                        Earnings
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a
-                                                        href="#"
-                                                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                    >
-                                                        Sign out
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    <select className="select select-bordered w-full">
+                                        <option disabled selected>
+                                            Categories name
+                                        </option>
+                                        <option>Java</option>
+                                        <option>Go</option>
+                                        <option>C</option>
+                                        <option>C#</option>
+                                        <option>C++</option>
+                                        <option>Rust</option>
+                                        <option>JavaScript</option>
+                                        <option>Python</option>
+                                    </select>
                                 </div>
-
                                 <div className="sm:col-span-2">
                                     <label
                                         for="description"

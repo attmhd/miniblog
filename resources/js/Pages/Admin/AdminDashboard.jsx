@@ -22,9 +22,8 @@ export default function AdminDashboard({ auth }) {
                             ></path>
                         </svg>
                     </div>
-                    <div className="stat-title">Downloads</div>
-                    <div className="stat-value">31K</div>
-                    <div className="stat-desc">Jan 1st - Feb 1st</div>
+                    <div className="stat-title">Category</div>
+                    <div className="stat-value">3</div>
                 </div>
 
                 <div className="stat">
@@ -43,8 +42,8 @@ export default function AdminDashboard({ auth }) {
                             ></path>
                         </svg>
                     </div>
-                    <div className="stat-title">Downloads</div>
-                    <div className="stat-value">31K</div>
+                    <div className="stat-title">Article</div>
+                    <div className="stat-value">31</div>
                     <div className="stat-desc">Jan 1st - Feb 1st</div>
                 </div>
                 <div className="stat">
@@ -70,8 +69,8 @@ export default function AdminDashboard({ auth }) {
             </div>
 
             <div className=" mt-14">
-                <span>Line Chart</span>
-                <div className="shadow-md w-[800px] rounded h-[200px] bg-gray-50"></div>
+                <span>Views Line Chart</span>
+                <div className="shadow-md w-full rounded h-[200px] bg-gray-300 mt-4"></div>
             </div>
         </AdminLayout>
     );

@@ -207,9 +207,6 @@ export default function AdminLayout({ user, children, header }) {
                                 <span className="flex-1 ms-3 whitespace-nowrap">
                                     Settings
                                 </span>
-                                <span className="relative indicator-item badge badge-primary ">
-                                    soon
-                                </span>
                             </Link>
                         </li>
                         <li>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\article;
+use App\Models\Category;
 use Inertia\Inertia;
 
 class ArticleController extends Controller
@@ -69,4 +70,6 @@ class ArticleController extends Controller
 
         return redirect()->route('article.index')->with('success', 'Article deleted successfully!');
     }
+
+    
 }

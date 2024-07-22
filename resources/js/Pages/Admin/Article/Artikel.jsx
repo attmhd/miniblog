@@ -5,10 +5,8 @@ import { IoEyeOutline } from "react-icons/io5";
 import { LuPencil } from "react-icons/lu";
 import { GoTrash } from "react-icons/go";
 import { useState } from "react";
-import { router } from "@inertiajs/react";
 import DeleteModal from "@/Components/DeleteModal";
 import Alert from "@/Components/Alert";
-import { data } from "autoprefixer";
 
 function formatDate(dateString) {
     const date = new Date(dateString);
