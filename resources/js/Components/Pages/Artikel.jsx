@@ -1,8 +1,8 @@
 import { Link } from "@inertiajs/react";
 
-export default function Articles({ id, title, desc }) {
+export default function Articles({ id, title, desc, cat }) {
     return (
-        <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12">
+        <div class="bg-gray-50 dark:bg-gray-800 border w-[350px] h-[400px] border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12">
             <Link
                 href="#"
                 class="bg-purple-100 text-purple-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-purple-400 mb-2"
@@ -22,15 +22,13 @@ export default function Articles({ id, title, desc }) {
                         d="M5 4 1 8l4 4m10-8 4 4-4 4M11 1 9 15"
                     />
                 </svg>
-                Code
+                {cat}
             </Link>
             <h2 class="text-gray-900 dark:text-white text-3xl font-extrabold mb-2">
                 {title}
             </h2>
             <p class="text-lg font-normal text-gray-500 dark:text-gray-400 mb-4">
-                Static websites are now used to bootstrap lots of websites and
-                are becoming the basis for a variety of tools that even
-                influence both web designers and developers.
+                {desc.slice(0, 194)}
             </p>
             <Link
                 href={`/detail/${id}`}

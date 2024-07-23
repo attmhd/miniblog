@@ -29,4 +29,17 @@ class DiscussController extends Controller
 
         return response()->json(['message' => 'Discussion created successfully']);
     }
+
+        public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'user_id'=>'required',
+            'article_id' => 'required',
+            'comment' => 'required',
+        ]);
+
+        Category::create($validatedData);
+
+        return redirect()->route('article.getById')->with('success', 'Category created successfully!');
+    }
 }

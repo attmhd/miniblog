@@ -30,7 +30,7 @@ class ArticleController extends Controller
 
     public function getAll()
     {
-        $articles = Article::all();
+        $articles = Article::with('category')->get();
         return Inertia::render('Home', [
             'articles' => $articles,
         ]);
@@ -52,6 +52,7 @@ class ArticleController extends Controller
             'title' => 'required',
             'category_id' => 'required',
             'description' => 'required',
+            'content' => 'required',
         ]);
 
         Article::create($validatedData);
@@ -65,6 +66,7 @@ class ArticleController extends Controller
         $article->update($request->validate([
             'title' => 'required',
             'description' => 'required',
+            'content' => 'required',
             'category_id' => 'required',
         ]));
 

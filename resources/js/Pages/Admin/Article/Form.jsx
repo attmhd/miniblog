@@ -7,22 +7,18 @@ import InputError from "@/Components/InputError";
 import Alert from "@/Components/Alert";
 
 export default function Form({ auth, articles, category }) {
-    console.log(articles.category_id);
+    // console.log(articles.category_id);
     const page = usePage();
     const currentUrl = page.url;
     const editor = useRef(null);
     const [open, setOpen] = useState(false);
 
-    const [update, setUpdate] = useState({
+    const [data, setData] = useState({
+        user_id: auth.user.id,
         title: articles.title,
         description: articles.description,
+        content: articles.content,
         category_id: articles.category_id,
-    });
-    const { data, setData, errors } = useForm({
-        title: "",
-        user_id: auth.user.id,
-        description: "",
-        category_id: category.id,
     });
 
     const showAlert = () => {
@@ -32,53 +28,30 @@ export default function Form({ auth, articles, category }) {
         }, 2000);
     };
 
-    const handleChanges = (e) => {
+    const handleChangeCategory = (e) => {
+        const selectcat = parseInt(e.target.value);
+        setData((prevData) => ({
+            ...prevData,
+            category_id: selectcat,
+        }));
+    };
+
+    const handleChangeContent = (content) => {
         setData({
             ...data,
-            title: e.target.value,
-        });
-    };
-
-    const handleCat = (e) => {
-        data.category_id = parseInt(e.target.value, 20);
-        setData({ ...data, selectId });
-    };
-
-    const handleChangeUpdate = (e) => {
-        setUpdate({
-            ...update,
-            title: e.target.value,
-        });
-    };
-
-    const handleUpdateCat = (e) => {
-        update.category_id = parseInt(e.target.value, 20);
-        setUpdate({ ...update, selectId });
-    };
-
-    const handleUpdateContent = (datas) => {
-        setUpdate({
-            ...update,
-            description: datas,
-        });
-    };
-
-    const handleContent = (datas) => {
-        setData({
-            ...data,
-            description: datas,
+            content: content,
         });
     };
 
     const addArticle = (e) => {
         e.preventDefault();
         router.post("/admin/artikel/new", data);
-        console.log(data);
 
         setData({
             title: "",
             description: "",
             category_id: "",
+            content: "",
         });
     };
 
@@ -86,17 +59,10 @@ export default function Form({ auth, articles, category }) {
         e.preventDefault();
         router.post(`/admin/artikel/${articles.id}`, {
             _method: "patch",
-            title: update.title,
-            description: update.description,
-            category_id: update.category_id,
-        });
-
-        console.log(update);
-
-        setUpdate({
-            title: "",
-            description: "",
-            category_id: "",
+            title: data.title,
+            description: data.description,
+            category_id: data.category_id,
+            content: data.content,
         });
     };
 
@@ -131,13 +97,12 @@ export default function Form({ auth, articles, category }) {
                         >
                             <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
                                 <div
-                                    className={`sm:col-span-2 ${
-                                        currentUrl != "/admin/artikel/new" &&
-                                        "hidden"
-                                    }`}
+                                    className={`sm:col-span-2 
+                                        
+                                    `}
                                 >
                                     <label
-                                        for="name"
+                                        htmlFor="name"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                     >
                                         Author
@@ -150,25 +115,12 @@ export default function Form({ auth, articles, category }) {
                                         placeholder={data.user_id}
                                         required=""
                                         disabled
-                                        onChange={
-                                            currentUrl ==
-                                                "/admin/artikel/new" &&
-                                            handleChanges
-                                        }
-                                        value={
-                                            currentUrl ==
-                                                "/admin/artikel/new" &&
-                                            data.user_id
-                                        }
+                                        value={data.user_id}
                                     />
-                                    {/* <InputError
-                                        message={errors.title}
-                                        className="mt-2"
-                                    /> */}
                                 </div>
                                 <div className="sm:col-span-2">
                                     <label
-                                        for="name"
+                                        htmlFor="title"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                     >
                                         Title
@@ -180,49 +132,56 @@ export default function Form({ auth, articles, category }) {
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         placeholder="Article's title"
                                         required=""
-                                        onChange={
-                                            currentUrl == "/admin/artikel/new"
-                                                ? handleChanges
-                                                : handleChangeUpdate
+                                        onChange={(e) =>
+                                            setData({
+                                                ...data,
+                                                title: e.target.value,
+                                            })
                                         }
-                                        value={
-                                            currentUrl == "/admin/artikel/new"
-                                                ? data.title
-                                                : update.title
-                                        }
+                                        value={data.title}
                                     />
-                                    {/* <InputError
-                                        message={errors.title}
-                                        className="mt-2"
-                                    /> */}
+                                </div>
+                                <div className="sm:col-span-2">
+                                    <label
+                                        htmlFor="description"
+                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Description
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="description"
+                                        id="description"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        placeholder="Article's description"
+                                        required=""
+                                        onChange={(e) =>
+                                            setData({
+                                                ...data,
+                                                description: e.target.value,
+                                            })
+                                        }
+                                        value={data.description}
+                                    />
                                 </div>
 
                                 <div className="sm:col-span-2">
                                     <label
-                                        for="name"
+                                        htmlFor="category"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                     >
                                         Category
                                     </label>
                                     <select
                                         className="select select-bordered w-full"
-                                        name="category_id"
-                                        value={
-                                            currentUrl == "/admin/artikel/new"
-                                                ? data.category_id
-                                                : update.category_id
-                                        }
-                                        onChange={
-                                            currentUrl == "/admin/artikel/new"
-                                                ? handleCat
-                                                : handleUpdateCat
-                                        }
+                                        value={data.category_id}
+                                        onChange={handleChangeCategory}
                                     >
                                         <option disabled selected>
                                             Choose categories name
                                         </option>
                                         {category.map((items, i) => (
-                                            <option key={i}>
+                                            <option key={i} value={items.id}>
                                                 {items.id} - {items.name}
                                             </option>
                                         ))}
@@ -230,35 +189,23 @@ export default function Form({ auth, articles, category }) {
                                 </div>
                                 <div className="sm:col-span-2">
                                     <label
-                                        for="description"
+                                        htmlFor="content"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                     >
-                                        Description
+                                        Content
                                     </label>
                                     <JoditEditor
                                         ref={editor}
-                                        value={
-                                            currentUrl == "/admin/artikel/new"
-                                                ? data.description
-                                                : update.description
-                                        }
+                                        value={data.content}
                                         onChange={(newContent) =>
-                                            currentUrl == "/admin/artikel/new"
-                                                ? handleContent(newContent)
-                                                : handleUpdateContent(
-                                                      newContent
-                                                  )
+                                            handleChangeContent(newContent)
                                         }
-                                    />
-                                    <InputError
-                                        message={errors.description}
-                                        className="mt-2"
                                     />
                                 </div>
                             </div>
                             <button
                                 type="submit"
-                                class=" mt-7 btn btn-primary"
+                                className=" mt-7 btn btn-primary"
                                 onClick={showAlert}
                             >
                                 Save

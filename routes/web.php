@@ -21,11 +21,13 @@ use Inertia\Inertia;
 Route::get('/tst', function () {
     return Inertia::render('Tst');});
 
+Route::post('/detail', [DiscussController::class,'store']);
 
 // Article routes
 Route::controller(ArticleController::class)->group(function () {
     Route::get('/', 'getAll')->name('article.getAll');
     Route::get('/detail/{article}', 'getById')->name('article.getById');
+
 });
 
 

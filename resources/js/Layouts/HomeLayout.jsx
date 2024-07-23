@@ -46,7 +46,7 @@ export default function HomeLayout({ user, children, header }) {
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
                         >
                             <li>
-                                <Link>Blog</Link>
+                                <a href="/">Blog</a>
                             </li>
                             <li>
                                 <Link>About</Link>
@@ -103,7 +103,7 @@ export default function HomeLayout({ user, children, header }) {
                 <div className="navbar-end hidden lg:flex  text-lg">
                     <ul className="menu menu-horizontal px-2">
                         <li>
-                            <Link href="">
+                            <Link href="/#blog">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"

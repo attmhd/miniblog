@@ -10,6 +10,7 @@ class Discuss extends Model
     use HasFactory;
     protected $fillable = [
         'user_id',
+        'article_id',
         'comment',
         'date',
     ];
@@ -18,4 +19,9 @@ class Discuss extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function article()
+    {
+        return $this->hasMany(Article::class);
+        }
 }
