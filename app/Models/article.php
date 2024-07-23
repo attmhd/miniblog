@@ -16,14 +16,14 @@ class article extends Model
         }
     
     
+    public function discusses()
+    {
+        return $this->hasMany(Discuss::class);
+    }
+
     public function user()
     {
-        return $this->belongsTo(user::class);
-        }
-
-    public function discuss()
-    {
-        return $this->belongsTo(discuss::class);
-        }
+        return $this->belongsTo(User::class);
+    }
 
 }

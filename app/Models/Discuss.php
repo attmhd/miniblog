@@ -15,13 +15,13 @@ class Discuss extends Model
         'date',
     ];
 
+ public function article()
+    {
+        return $this->belongsTo(Article::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
-    public function article()
-    {
-        return $this->hasMany(Article::class);
-        }
 }

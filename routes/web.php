@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DiscussController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,7 +27,7 @@ Route::post('/detail', [DiscussController::class,'store']);
 // Article routes
 Route::controller(ArticleController::class)->group(function () {
     Route::get('/', 'getAll')->name('article.getAll');
-    Route::get('/detail/{article}', 'getById')->name('article.getById');
+    Route::get('/detail/{id}', 'show')->name('article.show');
 
 });
 

@@ -17,10 +17,12 @@ function formatDate(dateString) {
 function padZero(value) {
     return String(value).padStart(2, "0");
 }
-export default function Details({ auth, articles }) {
+export default function Details({ auth, discussions }) {
+    console.log(discussions);
+    // console.log("nama :", discussions.name, " - ", discussions.title);
     const { data, setData } = useForm({
         user_id: auth.user.id,
-        article_id: articles.id,
+        article_id: discussions[0].article_id,
         comment: "",
     });
 
@@ -31,7 +33,11 @@ export default function Details({ auth, articles }) {
     const addComment = (e) => {
         e.preventDefault();
         console.log(data);
-        router.post("/detail", data);
+        router.post("/detail/", data);
+
+        setData({
+            comment: "",
+        });
     };
 
     return (
@@ -54,30 +60,35 @@ export default function Details({ auth, articles }) {
                                                 rel="author"
                                                 class="text-xl font-bold text-gray-900 dark:text-white"
                                             >
-                                                {articles.user.name}
+                                                {discussions[0].author_name}
                                             </span>
                                             <p class="text-base text-gray-500 dark:text-gray-400">
-                                                {articles.user.occupation}
+                                                {discussions[0].pekerjaan}
                                             </p>
                                             <p class="text-base text-gray-500 dark:text-gray-400">
                                                 {formatDate(
-                                                    articles.created_at
+                                                    discussions[0].created_at
                                                 )}
                                             </p>
                                         </div>
                                     </div>
                                 </address>
                                 <h1 class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
-                                    {articles.title}
+                                    {discussions[0].title}
                                 </h1>{" "}
                             </header>
-                            <div>{HTMLReactParser(articles.description)}</div>
+                            <div
+                                dangerouslySetInnerHTML={{
+                                    __html: discussions[0].content,
+                                }}
+                            />
 
-                            {/* Comment section */}
                             <Comment
                                 addComment={addComment}
                                 handleChange={handleChange}
-                                data={data.coments}
+                                data={data.comment}
+                                discuss={discussions}
+                                formatDate={formatDate}
                             />
                         </article>
                     </div>

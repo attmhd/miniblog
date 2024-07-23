@@ -38,8 +38,11 @@ class DiscussController extends Controller
             'comment' => 'required',
         ]);
 
-        Category::create($validatedData);
+        Discuss::create($validatedData);
 
-        return redirect()->route('article.getById')->with('success', 'Category created successfully!');
+        // return redirect()->route('article.index')->with('success', 'Article created successfully!');
+        
+        
+
     }
 }

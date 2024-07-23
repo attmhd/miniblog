@@ -1,6 +1,13 @@
 import PrimaryButton from "../PrimaryButton";
+import { BsThreeDotsVertical } from "react-icons/bs";
 
-export default function Comment({ handleChange, addComment, data }) {
+export default function Comment({
+    handleChange,
+    addComment,
+    data,
+    discuss,
+    formatDate,
+}) {
     return (
         <section class="not-format">
             <div class="flex justify-between items-center mb-6">
@@ -27,7 +34,7 @@ export default function Comment({ handleChange, addComment, data }) {
                 <PrimaryButton className="py-4">Post Comment</PrimaryButton>
             </form>
 
-            <article class="p-6 mb-6 text-base bg-white rounded-lg dark:bg-gray-900">
+            {/* <article class="p-6 mb-6 text-base bg-white rounded-lg dark:bg-gray-900">
                 <footer class="flex justify-between items-center mb-2">
                     <div class="flex items-center">
                         <p class="inline-flex items-center mr-3 font-semibold text-sm text-gray-900 dark:text-white">
@@ -215,7 +222,68 @@ export default function Comment({ handleChange, addComment, data }) {
                         Reply
                     </button>
                 </div>
-            </article>
+            </article> */}
+
+            {discuss.map((item, i) => (
+                <article
+                    key={i}
+                    class="p-6 mb-6 text-base bg-white border-t border-gray-200 dark:border-gray-700 dark:bg-gray-900"
+                >
+                    <footer class="flex justify-between items-center mb-2">
+                        <div class="flex items-center">
+                            <p class="inline-flex items-center mr-3 font-semibold text-sm text-gray-900 dark:text-white">
+                                <img
+                                    class="mr-2 w-6 h-6 rounded-full"
+                                    src="https://flowbite.com/docs/images/people/profile-picture-3.jpg"
+                                    alt="Bonnie Green"
+                                />
+                                {item.users_comment}
+                            </p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                <time
+                                    pubdate
+                                    datetime="2022-03-12"
+                                    title="March 12th, 2022"
+                                >
+                                    {formatDate(item.comment_created)}
+                                </time>
+                            </p>
+                        </div>
+
+                        <details className="dropdown ">
+                            <summary className="btn border-none bg-transparent">
+                                <BsThreeDotsVertical />
+                            </summary>
+                            <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                                <li>
+                                    <a>Edit</a>
+                                </li>
+                                <li>
+                                    <a>Delete</a>
+                                </li>
+                            </ul>
+                        </details>
+                    </footer>
+                    <p>{item.comment}</p>
+                    <div class="flex items-center mt-4 space-x-4">
+                        <button
+                            type="button"
+                            class="flex items-center font-medium text-sm text-gray-500 hover:underline dark:text-gray-400"
+                        >
+                            <svg
+                                class="mr-1.5 w-3 h-3"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor"
+                                viewBox="0 0 20 18"
+                            >
+                                <path d="M18 0H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h2v4a1 1 0 0 0 1.707.707L10.414 13H18a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5 4h2a1 1 0 1 1 0 2h-2a1 1 0 1 1 0-2ZM5 4h5a1 1 0 1 1 0 2H5a1 1 0 0 1 0-2Zm2 5H5a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Zm9 0h-6a1 1 0 0 1 0-2h6a1 1 0 1 1 0 2Z" />
+                            </svg>
+                            Reply
+                        </button>
+                    </div>
+                </article>
+            ))}
             <article class="p-6 mb-6 text-base bg-white border-t border-gray-200 dark:border-gray-700 dark:bg-gray-900">
                 <footer class="flex justify-between items-center mb-2">
                     <div class="flex items-center">
