@@ -18,8 +18,8 @@ function padZero(value) {
     return String(value).padStart(2, "0");
 }
 export default function Details({ auth, discussion, article }) {
-    console.log(auth.user);
-    console.log(discussion);
+    console.log(auth.user.id);
+    // console.log(discussion);
 
     let uId = null;
     let artikelId = null;
@@ -35,10 +35,11 @@ export default function Details({ auth, discussion, article }) {
     } else {
         artikelId = discussion[0].article_id;
         artikelData = discussion[0].article;
+        uId = auth.user.id;
     }
 
     const { data, setData } = useForm({
-        user_id: uId,
+        user_id: auth.user.id,
         article_id: artikelId,
         comment: "",
     });
