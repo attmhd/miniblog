@@ -21,8 +21,6 @@ function padZero(value) {
 }
 
 export default function AdminArticle({ auth, articles }) {
-    console.log(articles);
-    // const lenData = articles.length;
     const currentPage = articles.current_page;
     const lastPage = articles.last_page;
     const dataLen = articles.links.length - 1;

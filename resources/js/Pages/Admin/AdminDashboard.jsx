@@ -1,5 +1,5 @@
 import AdminLayout from "@/Layouts/AdminLayout";
-import { Head, usePage } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
 
 export default function AdminDashboard({ auth }) {
     return (

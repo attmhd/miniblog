@@ -2,7 +2,6 @@ import Comment from "@/Components/Pages/Comment";
 import RelatArticle from "@/Components/Pages/RelatedArticle";
 import HomeLayout from "@/Layouts/HomeLayout";
 import { Head } from "@inertiajs/react";
-import HTMLReactParser from "html-react-parser";
 import { useForm } from "@inertiajs/react";
 import { router } from "@inertiajs/react";
 
@@ -18,24 +17,15 @@ function padZero(value) {
     return String(value).padStart(2, "0");
 }
 export default function Details({ auth, discussion, article }) {
-    console.log(auth.user.id);
-    // console.log(discussion);
-
-    let uId = null;
     let artikelId = null;
     let artikelData = null;
 
-    if (
-        discussion == undefined ||
-        (auth.user.id == null && discussion == undefined)
-    ) {
+    if (discussion == undefined) {
         artikelId = article.id;
         artikelData = article;
-        uId = 0;
     } else {
         artikelId = discussion[0].article_id;
         artikelData = discussion[0].article;
-        uId = auth.user.id;
     }
 
     const { data, setData } = useForm({

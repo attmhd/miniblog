@@ -5,7 +5,6 @@ import { Head } from "@inertiajs/react";
 import { Typography } from "@material-tailwind/react";
 
 export default function Home({ auth, articles }) {
-    console.log(articles);
     return (
         <HomeLayout user={auth.user}>
             <Head title="Home" />
