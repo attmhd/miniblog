@@ -46,16 +46,6 @@ export default function Settings({ auth }) {
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         placeholder="Your name"
                                         required=""
-                                        // onChange={
-                                        //     currentUrl == "/admin/artikel/new"
-                                        //         ? handleChanges
-                                        //         : handleUpdateChanges
-                                        // }
-                                        // value={
-                                        //     currentUrl == "/admin/artikel/new"
-                                        //         ? data.name
-                                        //         : update.name
-                                        // }
                                     />
                                 </div>
                                 <div className="sm:col-span-2">
@@ -66,22 +56,28 @@ export default function Settings({ auth }) {
                                         Email
                                     </label>
                                     <input
-                                        type="text"
+                                        type="email"
                                         name="name"
                                         id="name"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         placeholder="Your email"
                                         required=""
-                                        // onChange={
-                                        //     currentUrl == "/admin/artikel/new"
-                                        //         ? handleChanges
-                                        //         : handleUpdateChanges
-                                        // }
-                                        // value={
-                                        //     currentUrl == "/admin/artikel/new"
-                                        //         ? data.name
-                                        //         : update.name
-                                        // }
+                                    />
+                                </div>
+                                <div className="sm:col-span-2">
+                                    <label
+                                        for="name"
+                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Occupation
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="pekerjaan"
+                                        id="pekerjaan"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        placeholder="Your occupation"
+                                        required=""
                                     />
                                 </div>
                                 <div className="sm:col-span-2">

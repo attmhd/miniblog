@@ -19,22 +19,26 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/tst', function () {
-    return Inertia::render('Tst');});
 
-Route::post('/detail', [DiscussController::class,'store']);
-
-// Article routes
-Route::controller(ArticleController::class)->group(function () {
-    Route::get('/', 'getAll')->name('article.getAll');
-    Route::get('/detail/{id}', 'show')->name('article.show');
-
-});
 
 
 // Authenticated routes
 Route::middleware('auth')->group(function () {
 
+    // Discuss routes
+Route::controller(DiscussController::class)->group(function () {
+    Route::post('/detail', 'store');
+    Route::delete('detail/{id}', 'destroy');
+    Route::get('/detail/{id}', 'show')->name('discuss.show');
+
+});
+
+
+// Article routes
+Route::controller(ArticleController::class)->group(function () {
+    Route::get('/', 'getAll')->name('article.getAll');
+
+});
     
 
     // Profile routes

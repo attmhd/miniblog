@@ -44,13 +44,14 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function discusses()
-    {
-        return $this->hasMany(Discuss::class);
-    }
+    // public function discusses()
+    // {
+    //     return $this->hasMany(Discuss::class);
+    // }
 
-    public function articles()
+    public function discusses()
     {
         return $this->hasManyThrough(Article::class, Discuss::class);
     }
+
 }

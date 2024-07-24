@@ -5,30 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Discuss;
+use App\Models\Article;
+use Inertia\Inertia;
+
 
 
 class DiscussController extends Controller
 {
-    public function getDiscussions()
-    {
-        $discussions = Discuss::with('user')->latest()->get();
-        return response()->json($discussions);
-    }
-
-    public function createDiscussion(Request $request)
-    {
-        $validatedData = $request->validate([
-            'comment' => 'required|string|max:255',
-        ]);
-
-        $discussion = new Discuss();
-        $discussion->user_id = Auth::user()->id;
-        $discussion->comment = $validatedData['comment'];
-        $discussion->date = now();
-        $discussion->save();
-
-        return response()->json(['message' => 'Discussion created successfully']);
-    }
+   
 
         public function store(Request $request)
     {
@@ -40,9 +24,41 @@ class DiscussController extends Controller
 
         Discuss::create($validatedData);
 
-        // return redirect()->route('article.index')->with('success', 'Article created successfully!');
-        
-        
-
     }
+
+    public function destroy($id)
+    {
+        $discuss = Discuss::find($id);
+
+        if (!$discuss) {
+            return abort(404);
+        }
+
+        $discuss->delete();
+
+        return redirect()->route('article.show')->with('success', 'Discuss deleted successfully!');
+    }
+
+     public function show($id)
+{
+    // Fetch the discussion with eager loading for related models
+    $discussion = Discuss::whereHas('article', function ($query) use ($id) {
+        $query->where('id', $id);
+    })->with('article.user','user')->get();
+
+        $article = Article::with('user')->find($id);
+
+    // If no discussion is found, return only the article data
+    if ($discussion->isEmpty()) {
+        return Inertia::render('Detail', [
+            'article' => $article,
+        ]);
+    }
+
+    return Inertia::render('Detail', [
+        'discussion' => $discussion,
+    ]);
+}
+
+
 }

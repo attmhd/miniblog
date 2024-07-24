@@ -17,12 +17,29 @@ function formatDate(dateString) {
 function padZero(value) {
     return String(value).padStart(2, "0");
 }
-export default function Details({ auth, discussions }) {
-    console.log(discussions);
-    // console.log("nama :", discussions.name, " - ", discussions.title);
+export default function Details({ auth, discussion, article }) {
+    console.log(auth.user);
+    console.log(discussion);
+
+    let uId = null;
+    let artikelId = null;
+    let artikelData = null;
+
+    if (
+        discussion == undefined ||
+        (auth.user.id == null && discussion == undefined)
+    ) {
+        artikelId = article.id;
+        artikelData = article;
+        uId = 0;
+    } else {
+        artikelId = discussion[0].article_id;
+        artikelData = discussion[0].article;
+    }
+
     const { data, setData } = useForm({
-        user_id: auth.user.id,
-        article_id: discussions[0].article_id,
+        user_id: uId,
+        article_id: artikelId,
         comment: "",
     });
 
@@ -60,26 +77,26 @@ export default function Details({ auth, discussions }) {
                                                 rel="author"
                                                 class="text-xl font-bold text-gray-900 dark:text-white"
                                             >
-                                                {discussions[0].author_name}
+                                                {artikelData.user.name}
                                             </span>
                                             <p class="text-base text-gray-500 dark:text-gray-400">
-                                                {discussions[0].pekerjaan}
+                                                {artikelData.user.occupation}
                                             </p>
                                             <p class="text-base text-gray-500 dark:text-gray-400">
                                                 {formatDate(
-                                                    discussions[0].created_at
+                                                    artikelData.created_at
                                                 )}
                                             </p>
                                         </div>
                                     </div>
                                 </address>
                                 <h1 class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
-                                    {discussions[0].title}
+                                    {artikelData.title}
                                 </h1>{" "}
                             </header>
                             <div
                                 dangerouslySetInnerHTML={{
-                                    __html: discussions[0].content,
+                                    __html: artikelData.content,
                                 }}
                             />
 
@@ -87,8 +104,9 @@ export default function Details({ auth, discussions }) {
                                 addComment={addComment}
                                 handleChange={handleChange}
                                 data={data.comment}
-                                discuss={discussions}
+                                discuss={discussion}
                                 formatDate={formatDate}
+                                user_id={auth.user.id}
                             />
                         </article>
                     </div>
